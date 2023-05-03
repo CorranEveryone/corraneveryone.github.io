@@ -72,4 +72,5 @@ html, body {
 button {
   background: linear-gradient(180deg, rgba(0,11,163,1) 0%, rgba(12,23,175,1) 100%);
   border: none;
+  color: #ffffff;
 }
