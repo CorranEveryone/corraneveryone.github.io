@@ -74,3 +74,7 @@ button {
   border: none;
   color: #ffffff;
 }
+
+iframe {
+  border: none;
+}
