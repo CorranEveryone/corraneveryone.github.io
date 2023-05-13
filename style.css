@@ -53,13 +53,15 @@ html, body {
 
 .header_button {
   height:55px;
-	background: none;
+  background: none;
   border: none;
   color: white;
   text-decoration: none;
   font-size: 16px;
   margin: 0px 5px;
   cursor: pointer;
+  float: right;
+  margin-top: 18px;
 }
 
 .header_multi_button {
