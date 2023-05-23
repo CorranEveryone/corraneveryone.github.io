@@ -1,0 +1,453 @@
+
+// Welcome to the documentation for /osscript. This is Script v2; not to be confused with /osrunscript
+
+// There are 4 sections to the documentation. The Actions section, the if statement section, the preset packages section, the special labels section, and the end section (closing notes).
+
+
+// ------------------------------------------------------------------
+// Welcome to the Action section. Available Actions are listed below.
+// ------------------------------------------------------------------
+
+
+//  msg [message]
+//      sends a message to the player.
+//      You can use @p to substitute their full player name (includes the +) or @nick to subtitute for a more natural version of their name (e.g. Mike_30+ becomes Mike)
+
+//  cpemsg [cpe message field] <message>
+//      same as msg, but allows you to send to the other special chat fields in top right, bottom right, or center.
+//      valid cpe message fields are: top1, top2, top3, bot1, bot2, bot3, announce, bigannounce, smallannounce
+//      However, unlike msg, these are limited to 64 characters at most. Remember, color codes count as 2 characters!
+//      The "announce" fields automatically disappears after 5 seconds.
+//      The rest stay forever unless you reset them by sending a completely blank message (or the player leaves the map).
+//      Blank example: "cpemsg bot3"
+
+//  kill <message>
+//      Kills the player with an optional public death message.
+//      The <message> is shown to everyone who is playing on the map.
+//      Because of this, it's highly recommended to not use the <message> argument, and instead use msg to tell the player directly why they died.
+
+//  cmd [command] <command arguments>
+//      Runs the given command with the given arguments.
+//      You can use @p and @nick to substitute player names just like in msg.
+
+//  tempblock [args]
+//      Shortcut for "cmd tempblock [args]". See /help tempblock for more info.
+//      Has faster performance than calling the command with the cmd Action.
+
+//  tempchunk [args]
+//      Shortcut for "cmd tempchunk [args]". See /help tempchunk for more info.
+//      Has faster performance than calling the command with the cmd Action.
+
+//  placeblock [block] [block coordinates]
+//      Used to place blocks in the map.
+//      Unlike tempblock, these are permanently placed just like editing the map for real, so caution should be taken when using this Action.
+//      ANYONE who runs the script in your map can potentially place blocks if the script runs this Action.
+
+//  delay [number or package]
+//      Makes the script pause for the amount of milliseconds specified.
+
+//  item [get/take] [ITEM_NAME]
+//      Gives an item to the player or takes an item from the player.
+//      You must use underscores instead of spaces for the item name, especially when checking if the player has an item (see "Conditions" further down).
+//      This is silent if you "get" an item when the player already has said item, and silent if you "take" an item when the player doesn't have said item.
+
+//  goto [#label]
+//      Makes the script jump to the label you specify and does not come back, making it ideal for splitting paths (See "Conditions" further down).
+
+//  call [#label]
+//      Like goto, but once it reaches a "quit" in the [#label] called, instead of quitting, it will come back and run what comes after the call.
+//      This means any delays in the label you call will delay what comes after the call.
+//      This makes it ideal for doing a set of actions that you want to happen multiple times throughout the map, but don't want to have to copy and paste all the actions.
+
+//  jump [#label]
+//      This Action is identical to goto unless we are currently in a label that was ran using the call Action.
+//      Normally, goto will completely override the stack and cause the next "quit" not to return back to the original call action.
+//      If we use jump instead of goto, it will come back to where it was called from once a "quit" is reached.
+
+//  newthread [#label]
+//      Like call, but allows the script to continue running without taking into account any of the delays in the label you called.
+//      This action may take a little bit of time to start up. If you want to make sure it always occurs BEFORE the actions you put next,
+//      you should add a little bit of delay (around 500 perhaps) after doing a newthread action.
+
+//  set [package] [value]
+//      Sets the [value] of [package]. If you want to set the value of a package to the value of another package, you have to unwrap it in the value argument with { }.
+//      For example:
+            set maxHealth 10
+            set myHealth {maxHealth}
+//      This results in myHealth with a value of "10".
+//      If you fail to unwrap maxHealth you would be left with a text value of "maxHealth" for myHealth, which is definitely not what you want in this case.
+
+//  setadd [package] [number or package]
+//      Adds the second argument to the first argument.
+//      For example:
+            set healthPotionBoost 5
+            set maxHealth 10
+            set myHealth {maxHealth}
+            setadd myHealth healthPotionBoost
+//      This results in myHealth with a value of "15".
+//      Or use a raw number:
+            setadd myHealth 3
+//      This results in myHealth with a value of "13" (assuming it was 10 to begin with).
+
+//  setsub [package] [number or package]
+//      Same as setadd, but subtracts.
+
+//  setmul [package] [number or package]
+//      Same as setadd, but multiplies.
+
+//  setdiv [package] [number or package]
+//      Same as setadd, but divides.
+
+//  setmod [package] [number or package]
+//      Sets the first argument to the remainder of an integer division between the first argument and the second argument.
+//      This is the equivalent of "firstArg = firstArg % secondArg;" in c-like languages.
+
+//  setrandrange [package] [number or package] [number or package]
+//      Sets the first argument to a random integer that is within the range of the second and third args.
+//      For example:
+            setrandrange attackDamage 1 5
+//      attackDamage can have the value of 1, 2, 3, 4, or 5, randomly chosen.
+
+//  setrandrangedecimal [package] [number or package] [number or package]
+//      Sets the first argument to a random number that is within the range of the second and third args.
+//      This is identical to setrandrange, except this time the range can truly result in any number, and will most often be something fractional with a decimal place.
+//      For example:
+            setrandrangedecimal attackDamage 1 5
+//      attackDamage could have a value of 0.306, 2.4553, 4.853, etc.
+
+//  setrandlist [package] [value1]|[value2]|[value3] etc...
+//      Sets the first argument to one of the given values that are separated by the | symbol.
+//      For example:
+            setrandlist myWarriorName Zog the Destroyer|Kron the Cunning|Dunidas of Kas
+//      myWarriorName could be "Zog the Destroyer", "Kron the Cunning", or "Dunidas of Kas", chosen randomly.
+//      Note that if you want to use a package as one or more of the values you must unwrap it, just like the set action.
+
+//  setround [package]
+//      Rounds the value of the package to the nearest integer.
+//      For example, 1.2 rounds to 1 and 1.6 rounds to 2. If the number ends with .5, it will round up.
+
+//  setroundup [package]
+//      Rounds the value of the package up to the next integer. For example, 1.1 becomes 2.
+
+//  setrounddown [package]
+//      Rounds the value of the package down to the next integer. For example, 1.9 becomes 1.
+
+//  setblockid [package] [block coordinates]
+//      Sets the value of [package] to the ID of the block at the given [block coordinates]
+//      IMPORTANT: this action does *not* see blocks that have been changed with tempblock or tempchunk!
+//      It only gets the ID of the block that was there in the original map.
+//      Side note, the ID of the block retrieved is the same as the ID of the block *clientside*, meaning something like hot_lava will be read as "11" from setblockid.
+
+//  setdirvector [xPackage] [yPackage] [zPackage] [yaw number or package] [pitch number or package]
+//      Sets the value of x y and z packges to a 3D direction vector based on yaw and pitch in degrees.
+//      You can use this to get a direction (e.g. for /boost) based on where the player is looking if you use playerYaw and playerPitch packages as yaw and pitch.
+
+//  show [package] <another package> <another package> etc...
+//      Displays the value of all the packages given, for testing and debug purposes.
+//      All but the first argument is optional.
+//  show every single package
+//      Displays every single non-saved package
+
+//  resetdata [type] <pattern>
+//      Used to reset data.
+//      [type] can be
+//          "packages" - resets packages
+//          "items" - resets items
+//          "saved" - resets saved packages (staff only)
+//      <pattern> is an optional search pattern that only resets matching names. If not specified, everything is reset.
+//          Use the special characters * and ? to specify the search pattern.
+//          * is a substitute for 0 or more characters, and ? is a substitute for 1 character.
+//          For example:
+                resetdata packages oldman_*
+//              This resets all packages that have a name that starts with the word "oldman_"
+                resetdata packages *_oldman
+//              This resets all packages that have a name that ends with the word "_oldman"
+//          If you do not use either * or ?, it will reset all packages which contain the pattern you specify.
+//          For example:
+                resetdata packages old
+//              This resets all packages which have "old" anywhere in the name.
+//              Note: this is actually identical to
+                resetdata packages *old*
+
+
+//  freeze
+//      Freezes the player in place. They can still fall if mid-air or swim up and down in liquid or ladders, though.
+
+//  unfreeze
+//      Unfreezes the player.
+
+//  look [block coordinates]
+//      Makes the player look at the given coordinates. They can move their camera afterwards.
+
+//  stare <block coordinates>
+//      Forces the player to continually stare at the given coordinates. You can free their camera by not providing any coordinates to this action.
+
+//  env [property] [value]
+//      Temporarily changes env values for the player who runs the script.
+//      Valid properties are currently:
+//          sky [hex color]
+//          cloud [hex color]
+//          cloudspeed [speed]
+//          cloudheight [height]
+//          fog [hex color]
+//          shadow [hex color]
+//          sun [hex color]
+//          skybox [hex color]
+//          weather [sun/rain/snow]
+//          maxfog [distance in blocks]
+//          expfog [on/off]
+
+//  motd [motd arguments]
+//      Sends an MOTD to the player to control hacks using hacks flags.
+//      To see a list of flags you can use, type /help map motd
+//      2021/12/11: jumpheight works too now
+//  motd ignore
+//      Resets to the default MOTD of the map.
+
+// setspawn [block coords]
+//      Sets the spawn of the player to the coordinates provided.
+
+//  reply [option number]|[text shown to player]|[#label to call if chosen]
+//      Sets up a reply option, which can be chosen by the player by typing [option number] in chat
+//      For example:
+            reply 1|You: Sure thing.|#replyYes
+            reply 2|You: No thanks.|#replyNo
+            reply 3|You: Can you elaborate?|#replyElaborate
+//      After these actions happen, saying "1" will call #replyYes, and so on.
+//      The maximum amount of replies you can setup at once is 6.
+//      !!! However !!!, it is recommended not to use 4, 5, 6, because they appear at the top of the screen where they are hard to find and read
+//      (especially if the sky is bright).
+//      Hot tip: use the freeze action if you want to force the player to choose before moving on.
+//  reply clear
+//      Clears all current replies from being visible and useable (this includes silent replies)
+
+//  replysilent
+//      Identical to reply, with two exceptions:
+//          Does not notify the player that they should choose a response
+//          Does not remind the player to choose a response if they chat while silent replies are active.
+//  replysilent clear
+//      Clears all current replies from being visible and useable (this includes non-silent replies)
+
+//  reach [distance]
+//      Temporarily sets the player's reach distance, in blocks.
+//      A change in MOTD will reset this. For example, switching maps, switching zones, being frozen or unfrozen.
+
+//  definehotkey [input args]|[key name]|<list of space separated modifiers>
+//      This feature allows the player to run the #input label by pressing a key.
+//      [input args] will be sent as an automatic command /input [input args]
+//      [key name] must match a key name from the LWJGL keycode specification. You can find the names here: https://minecraft.fandom.com/el/wiki/Key_codes#Full_table
+//      <list of space separated modifiers> is optional and can be any combination of "ctrl" "shift" "alt" and "async"
+//      async is a unique modifier that doesn't change what keys must be pressed, but allows the input to run repeatedly before the previous input is finished.
+//      async will call the label #inputAsync instead of the label #input.
+//      For example:
+            definehotkey lose|L
+//          If the player presses the L key, the script will run #input with runArg1 as "lose"
+            definehotkey superjump wow|EQUALS|ctrl shift
+//          If the player presses the equals key while holding ctrl and shift, the script will run #input with runArg1 as "superjump" and runArg2 as "wow"
+//      See "special labels section" for more information on how the special label #input works.
+//      IMPORTANT: for technical reasons, underscore will always be converted to space in the hotkey args,
+//                 so you cannot rely on checking for underscores in the runArgs it sends to #input because they will be spaces.
+
+//  undefinehotkey [key name]|<list of space separated modifiers> 
+//      This Action compliments definehotkey by allowing you to remove hotkeys.
+//      Note that you must include matching modifiers to undefine a hotkey that has those modifiers.
+//      For example:
+            undefinehotkey L
+            undefinehotkey L|shift
+//          If you have L and L with shift defined, you must also undefine L and L with shift to remove everything from the L key.
+//      As a final note, all defined hotkeys are removed when the player switches maps, so undefining is not required if you want them to stay for the duration of the map.
+
+//  changemodel <model>
+//      This Action allows you to temporarily change what model people have for the current world.
+//      Run this Action with no arguments to set the player's model back to what it was before.
+//      This Action only works if the MOTD of the level has one or more models forced with model=[something]
+
+//  quit
+//      Typically this tells the script to stop running.
+//      If we are in a label ran with the "call" Action, this causes the script to return to where it was called from.
+//      Be careful not to forget this. Without a "quit", the script will keep running and do actions from other labels below.
+
+//  terminate
+//      This tells the script to stop running completely, even if we are in a nested label that was called from somewhere else using "call"
+
+
+
+
+
+// --------------------------------------------------------------------------------------------
+// Welcome to the if statement section. Available ways to write if statements are listed below.
+// --------------------------------------------------------------------------------------------
+
+
+//  if [package] [Action]
+//      The [Action] will only be performed if [package] has a value of "true".
+
+//  if [package]|=|[package to compare to] [Action]
+//      The [Action] will only be performed if [package] has the same value as [package to compare to].
+//      Note the usage of the pipe symbol | to separate the arguments.
+//      This comparison is not case sensitive.
+
+//  if [package]|[operator]|[number or package] [Action]
+//      The [Action] will only be performed if the statement is true.
+//      Valid operators are =, >, >=, <, <=
+//      For example:
+            if myGemCount|<|bowGemPrice msg Sorry, you don't have enough gems to afford this bow.
+            if myGemCount|>=|2 msg Prospector: Well I'll be; you did manage to find more than one...!
+
+//  if item [ITEM_NAME] [Action]
+//      The [Action] will only be performed if the player has the given item.
+
+//  For any of the above, "if" can be substituted for "ifnot" to reverse the logic.
+//      For example:
+            ifnot recognized msg Shady dude: I don't know you.
+
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------------------------------
+//  Welcome to the preset packages section. The packages that are automatically filled with values when the script runs are listed below.
+// --------------------------------------------------------------------------------------------------------------------------------------
+
+
+//  Has a value of "true" if the player has cef installed (https://github.com/SpiralP/classicube-cef-loader-plugin)
+//      cef
+//  Has a value of "true" if the player is playing on the web client
+//      webclient
+//  Has a value of "true" if the player is playing on a mobile device
+//      mobile
+//  The x, y, and z coordinates of the message block that the script is ran from. These will be zero if ran from reply, /input, or hotkeys.
+//      MBX
+//      MBY
+//      MBZ
+//  The x, y, and z block coordinates of the player (integer numbers, like used in /tp).
+//      PlayerX
+//      PlayerY
+//      PlayerZ
+//  The x, y, and z precise coordinates of the player (1 block = 32 precise units. These are used for the command /tp -precise)
+//      PlayerPX
+//      PlayerPY
+//      PlayerPZ
+//  The player's camera yaw (left and right) and camera pitch (up and down) in degrees.
+//      PlayerYaw
+//      PlayerPitch
+//  A number used for the delay Action that is automatically scaled based on how many characters the previous msg Action had.
+//      msgDelay
+//  A number that determines how much scaling is applied to msgDelay. The default is 50, and it resets every time the script is run (you can change this number).
+//      msgDelayMultiplier
+
+//  The coordinates of the message block that the script is ran from. These will be zero if ran from reply, /input, or hotkeys.
+//      MBCoords
+//  The block coordinates of the player (integer numbers, like used in /tp).
+//      PlayerCoords
+//  The block coordinates of the player (decimal numbers, like used in /tempbot add)
+//      PlayerCoordsDecimal
+//  The precise coordinates of the player (1 block = 32 units, like used in /tp -precise)
+//      PlayerCoordsPrecise
+
+//  The arguments that are passed along with the #label when the script is run.
+//      runArg[number]
+//  The 0th runArg is always the name of the label the script started from.
+//  The following runArgs are optional and will be given the value of the extra arguments you pass along with a label.
+//      For example: /oss #entryDenied|The_Club|you're_not_cool.
+            #entryDenied
+                msg You can't enter {runArg1} because {runArg2}
+                kill
+                // result: The player is murdered and recieves the message "You can't enter The Club because you're not cool."
+            quit
+//  This is extremely useful if you want to have reuseable macros that perform some set of actions many times but with only slightly different details
+//  (like a name or number difference).
+//  If you use a runArg that has not been specified, it will have no value or count as 0 if used as a number.
+//      For example, running the above script but with just "/oss #entryDenied" would result in "You can't enter  because  "
+//  As a final note, you can change runArgs when you specify labels with goto, jump, call, newthread, and reply actions.
+//      For example:
+            #clubEntrance
+                msg You approach the bouncer...
+                delay 2000
+                ifnot item SUNGLASSES goto #entryDenied|The_Club|you're_not_cool.
+                
+                msg You're always welcome here, cool cat.
+            quit
+//  The number of milliseconds that have passed since 1970-01-01
+//      epochMS
+
+
+
+
+
+// ----------------------------------------------------------------------------------------------------
+// Welcome to the special labels section. Labels that allow for exceptional behaviors are listed below.
+// ----------------------------------------------------------------------------------------------------
+
+
+//  #input
+//      If it exists, this label will be called every time the player does the command /input.
+//      The arguments the player give to /input will be passed to the packages runArg1 and runArg2. runArg1 is always the very first word, and runArg2 contains all of the rest of the words.
+//      For example, "/input password king of kings" will result in:
+//      runArg1 = password
+//      runArg2 = king of kings
+//      This label is also called by hotkeys defined with the definehotkey Action.
+//      As a side note, as usual with runArgs, underscores cannot be used because they are automatically converted to spaces.
+
+//  #accessControl
+//      This only works for staff scripts.
+//      Before the player joins a map, the server checks if a script matching the map name exists.
+//      If that script exists and has the label #accessControl, that label will be ran.
+//      If the package "denyAccess" is set to "true" when the script quits, then the player will be denied access to the map.
+//      It's important to note that this runs /before/ player joins the map, so it cannot act as a spawn MB that initializes temporary packages or whatnot, since joining a map resets packages.
+
+
+
+
+// --------------------------------------------------------------------------------------------
+//  Welcome to the end section. Here are a couple of important notes about Not Awesome Scripts.
+// --------------------------------------------------------------------------------------------
+
+
+//  All Action names are case sensitive.
+//  All labels are case sensitive.
+//  All packages are NOT case sensitive, even if they appear to use very consistent case rules in the examples and documentation.
+
+//  You can unwrap packages into any text of the script except for the names of Actions, "if", "ifnot", and "#labels" that begin a line.
+//      THIS IS INCREDIBLY POWERFUL:
+//      You can dynamically change what the script is going to do by using the values of packages to modify Action arguments or names of other packages.
+//      (programming folks: can you figure out how to do arrays?)
+
+
+
+
+
+// ----------------------------------------------------------------------------------------------------------------
+//  Welcome to the staff section. Here are are a few notes which are only relevant for features available to staff.
+// ----------------------------------------------------------------------------------------------------------------
+
+
+//      For a package to be "saved", its name should end with a period. For example, imagine we wanted to save how many eggs were collected in egg2022.
+//      We could do:
+//          set eggCount. 20
+//      And this package would persist even if you left the map or logged out.
+//      We can access this package in other scripts by prefixing the package with "@scriptname_". For example:
+//          show @egg2022_eggCount.
+//      IMPORTANT: The period is *part of the package name* as well as marking that it is permanently saved.
+//      For example, if you are using eggCount. to save the eggs, "eggCount" (no period) will not give you the correct egg count,
+//      because it is a different package once the period is removed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
