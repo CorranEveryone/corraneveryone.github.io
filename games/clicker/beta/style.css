@@ -43,8 +43,8 @@
   
   
   .header_img {
-    height: 55px;
-    length: 55px;
+    height: 16px;
+    length: 16px;
   }
   
   .heading {
@@ -60,7 +60,7 @@
     margin: 0px 5px;
     cursor: pointer;
     float: right;
-    margin-top: 18px;
+    margin-top: 8px;
   }
   
   .header_multi_button {
