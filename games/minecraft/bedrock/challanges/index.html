@@ -24,6 +24,7 @@
     
     <a class='heading'>
     <h1>Minecraft Bedrock Edition Challanges, by: CorranEveryone</h1>
+    <div>It is recommended you do this on the latest version of the game NOT on the preview, unless it says so.</div>
 
     <h2>Minecraft but You Spawn Where You Die</h2>
     <div>This challenge requires a single Command Block to set up. You can put the command block anywhere. Just also make sure you put a Ticking Area where the Command Block is. To do that you use the /tickingarea command</div>
@@ -36,6 +37,47 @@
     <div>Command: execute as @a at @s spawnpoint @s ~ ~ ~</div>
     <h3>Another way you can do this *optional*</h3>
     <div>Change the command in the command block with this (execute as @a at @s spawnpoint @s ~ ~10 ~)</div>
+
+    <h2>Hardcore, but for Bedrock Edition</h2>
+    <div>This one is a little difficult to understand so pay attention</div>
+    <div>Items: Command Blocks & Bedrock</div>
+    <div>Don't forget to do the /tickingarea command!</div>
+    <h3>1st Command Block</h3>
+    <div>Block Type: REPEAT</div>
+    <div>Output Signal: ALWAYS</div>
+    <div>Activation: ALWAYS ACTIVE</div>
+    <div>Activate on first tick: TRUE</div>
+    <div>Tick Speed: 0</div>
+    <div>Command: tag add @a[r=1] dead</div>
+    <h3>2nd Command Block</h3>
+    <div>Block Type: REPEAT</div>
+    <div>Output Signal: ALWAYS</div>
+    <div>Activation: ALWAYS ACTIVE</div>
+    <div>Activate on first tick: TRUE</div>
+    <div>Tick Speed: 0</div>
+    <div>Command: execute @a[tag=dead, r=20] ~ ~ ~ tp @s {put world spawn coordinates here}</div>
+    <h3>3rd Command Block</h3>
+    <div>Block Type: REPEAT</div>
+    <div>Output Signal: ALWAYS</div>
+    <div>Activation: ALWAYS ACTIVE</div>
+    <div>Activate on first tick: TRUE</div>
+    <div>Tick Speed: 0</div>
+    <div>Command: execute @a ~ ~ ~ spawnpoint @s {coordinates of the box}</div>
+    <h3>4th Command Block</h3>
+    <div>Block Type: REPEAT</div>
+    <div>Output Signal: ALWAYS</div>
+    <div>Activation: ALWAYS ACTIVE</div>
+    <div>Activate on first tick: TRUE</div>
+    <div>Tick Speed: 0</div>
+    <div>Command: gamemode spectator @a[tag=dead]</div>
+    <h3>5th Command Block</h3>
+    <div>Block Type: REPEAT</div>
+    <div>Output Signal: ALWAYS</div>
+    <div>Activation: ALWAYS ACTIVE</div>
+    <div>Activate on first tick: TRUE</div>
+    <div>Tick Speed: 0</div>
+    <div>Command: difficulty hard</div>
+    <img src="https://corraneveryone.github.io/images/mcbedrchal1.png">
     </a>
   </body>
 
