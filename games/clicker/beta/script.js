@@ -10,7 +10,7 @@ var pps = 0; // Points per Second
 
 // Update the HTML text
 function updateHTML() {
-    document.getElementById('info1').innerHTML = "Points: " + clicks;
+    document.getElementById('info1').innerHTML = "Points: " + points;
 };
 
 // This function is ran everytime the button is clicked
