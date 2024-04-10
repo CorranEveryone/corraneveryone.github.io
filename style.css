@@ -44,7 +44,7 @@ html, body {
 
 .header_img {
   height: 55px;
-  length: 55px;
+  width: 55px;
 }
 
 .heading {
@@ -66,12 +66,6 @@ html, body {
 .header_multi_button {
   text-align: right;
   display: block;
-}
-
-.center_table {
-  margin-left: 25%;
-  width: 50%;
-  margin-right: 25%;
 }
 
 button {
