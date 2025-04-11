@@ -15,6 +15,6 @@ function updateHTML() {
 
 // This function is ran everytime the button is clicked
 function buttonClicked() {
-    var points = points + ppc; // Increase Points by the PPC
+    points = points + ppc; // Increase Points by the PPC
     updateHTML();
 };

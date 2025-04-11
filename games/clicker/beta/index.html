@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-
-
-  
   <head>
     
     <title>Just a Clicker Game</title>
@@ -12,9 +9,10 @@
     
   </head>
 
+  <header class="row">
 
-  
-  <header>
+    
+    <div class="column header_button">Just a Clicker Game <a class="version">v1.0.0.1</a></div>
 
     <!-- My Icon that sends you too the front page when you click on it -->
     <a target="_parent" href="/games/"><div class='header_button'>Back to CorranEveryone's Games</div></a>
@@ -29,23 +27,29 @@
     
    </header>
 
-
-  
   <body>
-    
-    <a class='heading'>
-    <h1>Just a Clicker Game</h1>
-    <div>Release 0, Beta 2</div>
-    <h2 id="info1">Points: 0</h1>
-    <div><button onclick="buttonClicked();">Click Me!</button></div>
-    </a>
-    
+    <!-- Split's the page into three columns -->
+    <div class="row" style="margin-top: 26px;">
+      <div class="column" style="text-align: left;"> <!-- Left -->
+
+        denf a working shop, trust
+
+      </div>
+      <div class="column" style="text-align: center;"> <!-- Middle -->
+
+        <div><button onclick="buttonClicked()" style="font-size: 40px;">I AM BUTTON</button></div>
+        <h2 id="info1">Points: 0</h1>
+
+      </div>
+      <div class="column" style="text-align: right;"> <!-- Right -->
+
+        There is something here, and that something is me.
+
+      </div>
+    </div> 
+
     <!-- Enable the JS File -->
     <script src="script.js"></script>
-    <!-- Old code used to build this game: https://replit.com/@CorranTIM/Click-Da-Button#script.js -->
 
   </body>
-
-
-  
 </html>
