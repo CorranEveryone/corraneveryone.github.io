@@ -68,3 +68,9 @@ iframe {
   font-size: 9px;
   color: lightgray;
 }
+
+.shopitem {
+  border: white;
+  border-style: solid;
+  border-radius: 8px;
+}

@@ -5,6 +5,12 @@
 ### v1.0.0.1
 Initial release, so far just features a button that increases points
 
+### v1.0.0.2
+#### Added
+- Shop
+- Upgrades
+    - Button Upgrade
+
 ## Explanation of Version Numbers
 Example: v1.2.3.4
 - The v1 means that I have made this this many times. 1 means I have only made this once. 2 would mean I have rewritten this from scratch.
