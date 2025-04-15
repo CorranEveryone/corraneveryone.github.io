@@ -2,14 +2,25 @@
 
 ## v1.0
 
-### v1.0.0.1
-Initial release, so far just features a button that increases points
+### v1.0.0.3
+#### Added
+- Added saving
+- Gives `pps` points every second (There are no upgrades for it at the moment)
+#### Changed
+- Version number is now handled by JavaScript variables
+- Shop
+    - Made the Button Upgrade show up when you can afford it.
+- CSS
+    - Changed the Button's padding
 
 ### v1.0.0.2
 #### Added
 - Shop
 - Upgrades
     - Button Upgrade
+
+### v1.0.0.1
+Initial release, so far just features a button that increases points
 
 ## Explanation of Version Numbers
 Example: v1.2.3.4

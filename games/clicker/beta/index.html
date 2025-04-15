@@ -12,7 +12,7 @@
   <header class="row">
 
     
-    <div class="column header_button">Just a Clicker Game <a class="version">v1.0.0.2</a></div>
+    <div class="column header_button">Just a Clicker Game <a id="version" class="version">...</a></div>
 
     <!-- My Icon that sends you too the front page when you click on it -->
     <a target="_parent" href="/games/"><div class='header_button'>Back to CorranEveryone's Games</div></a>
@@ -34,7 +34,7 @@
 
         <h1>Shop</h1>
 
-        <div class="shopitem">
+        <div id="item1" class="shopitem" style="display: none">
           <h3>Upgrade Button</h3>
           <div>+1 PPC</div>
           <div id="item1cost">Costs: 10 Points</div>
@@ -44,14 +44,15 @@
       </div>
       <div class="column" style="text-align: center;"> <!-- Middle -->
 
-        <div><button onclick="buttonClicked()" style="font-size: 40px;">I AM BUTTON</button></div>
+        <div><button id="mainButton" onclick="buttonClicked()" style="font-size: 40px;" disabled="true">waiting for save to load...</button></div>
         <h2 id="pointCount">Points: 0</h1>
         <h2 id="ppcCount" style="display: none">:/</h2>
 
       </div>
       <div class="column" style="text-align: right;"> <!-- Right -->
 
-        There is something here, and that something is me.
+        <button onclick="saveData()">Save Game</button>
+        <div>There is something here, and that something is me.</div>
 
       </div>
     </div> 
