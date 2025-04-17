@@ -2,6 +2,10 @@
 
 ## v1.0
 
+### v1.0.0.4
+#### Bug Fixes
+- Fixed a bug where you cannot load a new save because it tries to load a blank save. This was causing the `Points: NaN` issue.
+
 ### v1.0.0.3
 #### Added
 - Added saving

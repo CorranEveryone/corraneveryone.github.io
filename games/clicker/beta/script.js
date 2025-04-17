@@ -2,7 +2,7 @@
 var isbeta = true;
 var majver = 0;
 var minver = 0;
-var betaver = 3;
+var betaver = 4;
 if (isbeta = false) {
     document.getElementById('version').innerHTML = "v1." + majver + "." + minver;
     savePrefix = "clicker/"
@@ -59,7 +59,7 @@ function saveData() {
     // Save version data
     localStorage.setItem(savePrefix + 'isthereasave', "yes");
     temp1 = localStorage.getItem(savePrefix + 'firstversion');
-    if (temp1 == "null") {
+    if (temp1 == null) {
         localStorage.setItem(savePrefix + 'firstversion', document.getElementById('version').innerHTML);
     };
     localStorage.setItem(savePrefix + 'version', document.getElementById('version').innerHTML);
@@ -78,28 +78,28 @@ function saveData() {
 
 // Load save data
 temp1 = localStorage.getItem(savePrefix + 'isthereasave')
-if (temp1 == "null") {
+if (temp1 === null) {
     console.log("No save was found.");
 } else {
     console.log("Save found, loading save.");
 
     // Load save data
     temp1 = localStorage.getItem(savePrefix + 'points');
-    if (temp1 != "null") {
+    if (temp1 != null) {
         points = parseInt(localStorage.getItem(savePrefix + 'points'));
     };
     temp1 = localStorage.getItem(savePrefix + 'ppc');
-    if (temp1 != "null") {
+    if (temp1 != null) {
         ppc = parseInt(localStorage.getItem(savePrefix + 'ppc'));
     };
     temp1 = localStorage.getItem(savePrefix + 'pps');
-    if (temp1 != "null") {
+    if (temp1 != null) {
         pps = parseInt(localStorage.getItem(savePrefix + 'pps'));
     };
 
     // Load item costs
     temp1 = localStorage.getItem(savePrefix + 'item1cost');
-    if (temp1 != "null") {
+    if (temp1 != null) {
         item1cost = parseInt(localStorage.getItem(savePrefix + 'item1cost'));
     };
 
