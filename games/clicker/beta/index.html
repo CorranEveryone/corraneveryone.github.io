@@ -36,9 +36,16 @@
 
         <div id="item1" class="shopitem" style="display: none">
           <h3>Upgrade Button</h3>
-          <div>+1 PPC</div>
+          <div>+1 Point/Click</div>
           <div id="item1cost">Costs: 10 Points</div>
           <div><button onclick="item1Buy()">Buy!</button></div>
+        </div>
+
+        <div id="item2" class="shopitem" style="display: none">
+          <h3>Automanic Button Clicker</h3>
+          <div>+1 Point/s</div>
+          <div id="item2cost">Costs: 25 Points</div>
+          <div><button onclick="item2Buy()">Buy!</button></div>
         </div>
 
       </div>
@@ -47,6 +54,7 @@
         <div><button id="mainButton" onclick="buttonClicked()" style="font-size: 40px;" disabled="true">waiting for save to load...</button></div>
         <h2 id="pointCount">Points: 0</h1>
         <h2 id="ppcCount" style="display: none">:/</h2>
+        <h2 id="ppsCount" style="display: none">:/</h2>
 
       </div>
       <div class="column" style="text-align: right;"> <!-- Right -->

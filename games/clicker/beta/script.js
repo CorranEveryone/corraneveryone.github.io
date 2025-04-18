@@ -2,7 +2,7 @@
 var isbeta = true;
 var majver = 0;
 var minver = 0;
-var betaver = 4;
+var betaver = 5;
 if (isbeta = false) {
     document.getElementById('version').innerHTML = "v1." + majver + "." + minver;
     savePrefix = "clicker/"
@@ -22,6 +22,7 @@ var pps = 0; // Points per Second
 
 // Shop Item Costs
 var item1cost = 10; // Upgrade Button
+var item2cost = 25; // Automanic Button Clicker
 
 // Update the HTML text
 function updateHTML() {
@@ -31,9 +32,16 @@ function updateHTML() {
         document.getElementById('item1').style.display = "block";
     };
     if (ppc > 1) {
-        document.getElementById('ppcCount').innerHTML = "Points Per Click: " + ppc;
+        document.getElementById('ppcCount').innerHTML = "Points/Click: " + ppc;
         document.getElementById("ppcCount").style.display = "block";
         document.getElementById('item1').style.display = "block";
+    };
+    if (ppc > 4) {
+        document.getElementById('item2').style.display = "block";
+    };
+    if (pps > 0) {
+        document.getElementById('ppsCount').innerHTML = "Points/s: " + pps;
+        document.getElementById("ppsCount").style.display = "block";
     };
 };
 
@@ -43,6 +51,7 @@ function buttonClicked() {
     updateHTML();
 };
 
+// SHOP ITEM FUNCTIONS
 function item1Buy() {
     if (points >= item1cost) {
         ppc += 1;
@@ -52,6 +61,17 @@ function item1Buy() {
         updateHTML();
     };
 };
+
+function item2Buy() {
+    if (points >= item2cost) {
+        pps += 1;
+        points -= item2cost;
+        item2cost += 1;
+        item2cost = Math.round(item2cost * 1.1);
+        updateHTML();
+    };
+};
+
 
 function saveData() {
     console.log("Saving game...");
@@ -72,6 +92,7 @@ function saveData() {
 
     // Save item costs
     localStorage.setItem(savePrefix + 'item1cost', item1cost);
+    localStorage.setItem(savePrefix + 'item2cost', item2cost);
 
     console.log("Save complete!");
 }
@@ -102,6 +123,10 @@ if (temp1 === null) {
     if (temp1 != null) {
         item1cost = parseInt(localStorage.getItem(savePrefix + 'item1cost'));
     };
+    temp1 = localStorage.getItem(savePrefix + 'item2cost');
+    if (temp1 != null) {
+        item1cost = parseInt(localStorage.getItem(savePrefix + 'item2cost'));
+    };
 
     console.log("Save loaded.")
 };
@@ -116,5 +141,4 @@ setInterval(secondHasPassed, 1000);
 function secondHasPassed() {
     points += pps;
     updateHTML();
-  
 };
