@@ -59,8 +59,13 @@
       </div>
       <div class="column" style="text-align: right;"> <!-- Right -->
 
-        <button onclick="saveData()">Save Game</button>
-        <div>There is something here, and that something is me.</div>
+        <div><button onclick="saveData()">Save Game</button></div>
+        <div><button onclick="promptDeleteSave()">Delete Save Data</button></div>
+        <div class="shopitem" style="display: none" id="deletesaveprompt">
+          <h3>Are you sure you want to delete your Save Data?</h3>
+          <div><button onclick="closeDeleteSave()">NO! NO! PLEASE DON'T DELETE MY SAVE!</button></div>
+          <div><button onclick="deleteSave()">Yes, delete it.</button></div>
+        </div>
 
       </div>
     </div> 

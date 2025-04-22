@@ -2,7 +2,7 @@
 var isbeta = true;
 var majver = 0;
 var minver = 0;
-var betaver = 5;
+var betaver = 6;
 if (isbeta = false) {
     document.getElementById('version').innerHTML = "v1." + majver + "." + minver;
     savePrefix = "clicker/"
@@ -26,8 +26,9 @@ var item2cost = 25; // Automanic Button Clicker
 
 // Update the HTML text
 function updateHTML() {
-    document.getElementById('pointCount').innerHTML = "Points: " + points;
+    document.getElementById('pointCount').innerHTML = "Points: " + Math.floor(points);
     document.getElementById('item1cost').innerHTML = "Costs: " + item1cost + " Points";
+    document.getElementById('item2cost').innerHTML = "Costs: " + item2cost + " Points";
     if (points >= 10) {
         document.getElementById('item1').style.display = "block";
     };
@@ -72,7 +73,6 @@ function item2Buy() {
     };
 };
 
-
 function saveData() {
     console.log("Saving game...");
 
@@ -86,7 +86,7 @@ function saveData() {
     localStorage.setItem(savePrefix + 'isbeta', "true");
 
     // Save main data
-    localStorage.setItem(savePrefix + 'points', points);
+    localStorage.setItem(savePrefix + 'points', Math.floor(points));
     localStorage.setItem(savePrefix + 'ppc', ppc);
     localStorage.setItem(savePrefix + 'pps', pps);
 
@@ -95,7 +95,21 @@ function saveData() {
     localStorage.setItem(savePrefix + 'item2cost', item2cost);
 
     console.log("Save complete!");
-}
+    alert("Save complete!");
+};
+
+function promptDeleteSave() {
+    document.getElementById('deletesaveprompt').style.display = "block";
+};
+
+function closeDeleteSave() {
+    document.getElementById('deletesaveprompt').style.display = "none";
+};
+
+function deleteSave() {
+    localStorage.removeItem(savePrefix + 'isthereasave');
+    window.location.reload();
+};
 
 // Load save data
 temp1 = localStorage.getItem(savePrefix + 'isthereasave')
@@ -136,9 +150,9 @@ document.getElementById('mainButton').innerHTML = "I AM BUTTON";
 document.getElementById('mainButton').disabled = false;
 updateHTML(); // Also updateHTML() to get all of the save data to show up on the screen
 
-setInterval(secondHasPassed, 1000);
+setInterval(secondHasPassed, 10);
 
 function secondHasPassed() {
-    points += pps;
+    points += pps/100;
     updateHTML();
 };

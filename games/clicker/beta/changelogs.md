@@ -2,6 +2,12 @@
 
 ## v1.0 [Unreleased]
 
+### v1.0.0.6 [Apr 21, 2025]
+#### Added
+- Added a way to delete your save data
+#### Changed
+- Smoothened the `Points/s` gain from once a second to 100 times per second.
+
 ### v1.0.0.5 [Apr 17, 2025]
 #### Added
 - Shop
