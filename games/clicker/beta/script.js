@@ -2,7 +2,7 @@
 var isbeta = true;
 var majver = 0;
 var minver = 0;
-var betaver = 6;
+var betaver = 7;
 if (isbeta = false) {
     document.getElementById('version').innerHTML = "v1." + majver + "." + minver;
     savePrefix = "clicker/"
@@ -23,26 +23,42 @@ var pps = 0; // Points per Second
 // Shop Item Costs
 var item1cost = 10; // Upgrade Button
 var item2cost = 25; // Automanic Button Clicker
+var item3cost = 140; // Polish Button
+var item4cost = 300; // Automanic Button Clicker MkII
+
+// Misc. Variables
+var autosavetimer = 6000 // 1 tick = 1/100 of a second
+var inflation = 0.075 // cost*(1+inflation) = newcost (this is how high a cost goes up when you buy something)
 
 // Update the HTML text
 function updateHTML() {
     document.getElementById('pointCount').innerHTML = "Points: " + Math.floor(points);
     document.getElementById('item1cost').innerHTML = "Costs: " + item1cost + " Points";
     document.getElementById('item2cost').innerHTML = "Costs: " + item2cost + " Points";
-    if (points >= 10) {
+    document.getElementById('item3cost').innerHTML = "Costs: " + item3cost + " Points";
+    document.getElementById('item4cost').innerHTML = "Costs: " + item4cost + " Points";
+
+    // Shows Items when Unlocked
+    if (points >= 10) { // Upgrade Button
         document.getElementById('item1').style.display = "block";
     };
-    if (ppc > 1) {
+    if (ppc >= 2) { // Points/Click Count
         document.getElementById('ppcCount').innerHTML = "Points/Click: " + ppc;
         document.getElementById("ppcCount").style.display = "block";
         document.getElementById('item1').style.display = "block";
     };
-    if (ppc > 4) {
+    if (ppc >= 5) { // Automanic Button Clicker
         document.getElementById('item2').style.display = "block";
     };
-    if (pps > 0) {
+    if (pps >= 1) { // Points/s Count
         document.getElementById('ppsCount').innerHTML = "Points/s: " + pps;
         document.getElementById("ppsCount").style.display = "block";
+    };
+    if (pps >= 10) { // Polish Button
+        document.getElementById('item3').style.display = "block";
+    };
+    if (ppc >= 60) { // Automanic Button Clicker MkII
+        document.getElementById('item4').style.display = "block";
     };
 };
 
@@ -58,7 +74,7 @@ function item1Buy() {
         ppc += 1;
         points -= item1cost;
         item1cost += 1;
-        item1cost = Math.round(item1cost * 1.1);
+        item1cost = Math.round(item1cost * (1+inflation));
         updateHTML();
     };
 };
@@ -68,35 +84,63 @@ function item2Buy() {
         pps += 1;
         points -= item2cost;
         item2cost += 1;
-        item2cost = Math.round(item2cost * 1.1);
+        item2cost = Math.round(item2cost * (1+inflation));
         updateHTML();
     };
 };
 
-function saveData() {
+function item3Buy() {
+    if (points >= item3cost) {
+        ppc += 8;
+        points -= item3cost;
+        item3cost += 1;
+        item3cost = Math.round(item3cost * (1+inflation));
+        updateHTML();
+    };
+};
+
+function item4Buy() {
+    if (points >= item4cost) {
+        pps += 10;
+        points -= item4cost;
+        item4cost += 1;
+        item4cost = Math.round(item4cost * (1+inflation));
+        updateHTML();
+    };
+};
+
+function saveData(method) {
     console.log("Saving game...");
 
     // Save version data
-    localStorage.setItem(savePrefix + 'isthereasave', "yes");
-    temp1 = localStorage.getItem(savePrefix + 'firstversion');
+    saveItem('isthereasave', "yes");
+    temp1 = saveItem('firstversion');
     if (temp1 == null) {
-        localStorage.setItem(savePrefix + 'firstversion', document.getElementById('version').innerHTML);
+        saveItem('firstversion', document.getElementById('version').innerHTML);
     };
-    localStorage.setItem(savePrefix + 'version', document.getElementById('version').innerHTML);
-    localStorage.setItem(savePrefix + 'isbeta', "true");
+    saveItem('version', document.getElementById('version').innerHTML);
+    saveItem('isbeta', "true");
 
     // Save main data
-    localStorage.setItem(savePrefix + 'points', Math.floor(points));
-    localStorage.setItem(savePrefix + 'ppc', ppc);
-    localStorage.setItem(savePrefix + 'pps', pps);
+    saveItem('points', Math.floor(points));
+    saveItem('ppc', ppc);
+    saveItem('pps', pps);
 
     // Save item costs
-    localStorage.setItem(savePrefix + 'item1cost', item1cost);
-    localStorage.setItem(savePrefix + 'item2cost', item2cost);
+    saveItem('item1cost', item1cost);
+    saveItem('item2cost', item2cost);
+    saveItem('item3cost', item3cost);
+    saveItem('item4cost', item4cost);
 
     console.log("Save complete!");
-    alert("Save complete!");
+    if (method == 'button') {
+        alert("Save complete!");
+    }
 };
+
+function saveItem(item, value) {
+    localStorage.setItem(savePrefix + item, value);
+}
 
 function promptDeleteSave() {
     document.getElementById('deletesaveprompt').style.display = "block";
@@ -112,38 +156,50 @@ function deleteSave() {
 };
 
 // Load save data
-temp1 = localStorage.getItem(savePrefix + 'isthereasave')
+temp1 = loadData('isthereasave')
 if (temp1 === null) {
     console.log("No save was found.");
 } else {
     console.log("Save found, loading save.");
 
     // Load save data
-    temp1 = localStorage.getItem(savePrefix + 'points');
+    temp1 = loadData('points');
     if (temp1 != null) {
-        points = parseInt(localStorage.getItem(savePrefix + 'points'));
+        points = parseInt(loadData('points'));
     };
-    temp1 = localStorage.getItem(savePrefix + 'ppc');
+    temp1 = loadData('ppc');
     if (temp1 != null) {
-        ppc = parseInt(localStorage.getItem(savePrefix + 'ppc'));
+        ppc = parseInt(loadData('ppc'));
     };
-    temp1 = localStorage.getItem(savePrefix + 'pps');
+    temp1 = loadData('pps');
     if (temp1 != null) {
-        pps = parseInt(localStorage.getItem(savePrefix + 'pps'));
+        pps = parseInt(loadData('pps'));
     };
 
     // Load item costs
-    temp1 = localStorage.getItem(savePrefix + 'item1cost');
+    temp1 = loadData('item1cost');
     if (temp1 != null) {
-        item1cost = parseInt(localStorage.getItem(savePrefix + 'item1cost'));
+        item1cost = parseInt(loadData('item1cost'));
     };
-    temp1 = localStorage.getItem(savePrefix + 'item2cost');
+    temp1 = loadData('item2cost')
     if (temp1 != null) {
-        item1cost = parseInt(localStorage.getItem(savePrefix + 'item2cost'));
+        item2cost = parseInt(loadData('item2cost'));
+    };
+    temp1 = loadData('item3cost');
+    if (temp1 != null) {
+        item3cost = parseInt(loadData('item3cost'));
+    };
+    temp1 = loadData('item4cost')
+    if (temp1 != null) {
+        item4cost = parseInt(loadData('item4cost'));
     };
 
     console.log("Save loaded.")
 };
+
+function loadData(item) {
+    return localStorage.getItem(savePrefix + item)
+}
 
 // Enable the button
 document.getElementById('mainButton').innerHTML = "I AM BUTTON";
@@ -154,5 +210,10 @@ setInterval(secondHasPassed, 10);
 
 function secondHasPassed() {
     points += pps/100;
+    autosavetimer -= 1;
+    if (autosavetimer <= 0) {
+        autosavetimer = 6000
+        saveData('auto');
+    };
     updateHTML();
 };

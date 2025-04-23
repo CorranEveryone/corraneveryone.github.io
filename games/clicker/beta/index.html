@@ -48,6 +48,20 @@
           <div><button onclick="item2Buy()">Buy!</button></div>
         </div>
 
+        <div id="item3" class="shopitem" style="display: none">
+          <h3>Polish Button</h3>
+          <div>+8 Point/Click</div>
+          <div id="item3cost">Costs: 140 Points</div>
+          <div><button onclick="item3Buy()">Buy!</button></div>
+        </div>
+
+        <div id="item4" class="shopitem" style="display: none">
+          <h3>Automanic Button Clicker MkII</h3>
+          <div>+10 Point/s</div>
+          <div id="item4cost">Costs: 300 Points</div>
+          <div><button onclick="item4Buy()">Buy!</button></div>
+        </div>
+
       </div>
       <div class="column" style="text-align: center;"> <!-- Middle -->
 
@@ -59,7 +73,7 @@
       </div>
       <div class="column" style="text-align: right;"> <!-- Right -->
 
-        <div><button onclick="saveData()">Save Game</button></div>
+        <div><button onclick="saveData('button')">Save Game</button></div>
         <div><button onclick="promptDeleteSave()">Delete Save Data</button></div>
         <div class="shopitem" style="display: none" id="deletesaveprompt">
           <h3>Are you sure you want to delete your Save Data?</h3>

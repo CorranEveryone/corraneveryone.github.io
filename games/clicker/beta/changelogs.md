@@ -2,6 +2,20 @@
 
 ## v1.0 [Unreleased]
 
+### v1.0.0.7 [Apr 23, 2025]
+#### Added
+- Autosaving every minute
+- Seperate variable for the cost increase of items being bought called `inflation`
+- Shop
+    - Added Polish Button (Shows when you have 10+ Points/s)
+    - Added Automanic Button Clicker MkII (Shows when you have 60+ Points/Click)
+#### Changes
+- Simplified Saving and Loading Code
+- Change `inflation` from 10% to 7.5%
+#### Bug Fixes
+- Fixed `Upgrade Button` from having the cost of the `Automanic Button Clicker`
+- Fixed `Automanic Button Clicker` from defaulting to the default cost
+
 ### v1.0.0.6 [Apr 21, 2025]
 #### Added
 - Added a way to delete your save data
@@ -11,7 +25,7 @@
 ### v1.0.0.5 [Apr 17, 2025]
 #### Added
 - Shop
-    - Automanic Button Clicker (Shows when you have 5+ PPC)
+    - Automanic Button Clicker (Shows when you have 5+ Points/Click)
 #### Changed
 - Changed `ppc` and `Points Per Click` to `Points/Click`
 - Changed `pps` and `Points Per Second` to `Points/s`
