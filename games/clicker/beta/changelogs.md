@@ -2,6 +2,16 @@
 
 ## v1.0 [Unreleased]
 
+### v1.0.0.8 [Apr 24, 2025]
+#### Added
+- Stats
+    - New feature, now including the following:
+        - Total Points (Will be tracked from this version on)
+        - Most Points (Will be tracked from this version on)
+        - Items Bought (Will be tracked from this version on)
+        - First Version Played
+- Settings header
+
 ### v1.0.0.7 [Apr 23, 2025]
 #### Added
 - Autosaving every minute

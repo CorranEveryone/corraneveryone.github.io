@@ -2,7 +2,7 @@
 var isbeta = true;
 var majver = 0;
 var minver = 0;
-var betaver = 7;
+var betaver = 8;
 if (isbeta = false) {
     document.getElementById('version').innerHTML = "v1." + majver + "." + minver;
     savePrefix = "clicker/"
@@ -26,6 +26,12 @@ var item2cost = 25; // Automanic Button Clicker
 var item3cost = 140; // Polish Button
 var item4cost = 300; // Automanic Button Clicker MkII
 
+// Stats
+var totalpoints = 0;
+var mostpoints = 0;
+var itemsbought = 0;
+var firstversion = document.getElementById('version').innerHTML
+
 // Misc. Variables
 var autosavetimer = 6000 // 1 tick = 1/100 of a second
 var inflation = 0.075 // cost*(1+inflation) = newcost (this is how high a cost goes up when you buy something)
@@ -37,6 +43,11 @@ function updateHTML() {
     document.getElementById('item2cost').innerHTML = "Costs: " + item2cost + " Points";
     document.getElementById('item3cost').innerHTML = "Costs: " + item3cost + " Points";
     document.getElementById('item4cost').innerHTML = "Costs: " + item4cost + " Points";
+
+    document.getElementById('stat1').innerHTML = "Total Points: " + totalpoints;
+    document.getElementById('stat2').innerHTML = "Most Points: " + mostpoints;
+    document.getElementById('stat3').innerHTML = "Items Bought: " + itemsbought;
+    document.getElementById('firstversion').innerHTML = "First Version Played: " + firstversion;
 
     // Shows Items when Unlocked
     if (points >= 10) { // Upgrade Button
@@ -64,7 +75,8 @@ function updateHTML() {
 
 // This function is ran everytime the button is clicked
 function buttonClicked() {
-    points = points + ppc; // Increase Points by the PPC
+    points += ppc; // Increase Points by the PPC
+    totalpoints += ppc;
     updateHTML();
 };
 
@@ -75,6 +87,7 @@ function item1Buy() {
         points -= item1cost;
         item1cost += 1;
         item1cost = Math.round(item1cost * (1+inflation));
+        itemsbought += 1;
         updateHTML();
     };
 };
@@ -85,6 +98,7 @@ function item2Buy() {
         points -= item2cost;
         item2cost += 1;
         item2cost = Math.round(item2cost * (1+inflation));
+        itemsbought += 1;
         updateHTML();
     };
 };
@@ -95,6 +109,7 @@ function item3Buy() {
         points -= item3cost;
         item3cost += 1;
         item3cost = Math.round(item3cost * (1+inflation));
+        itemsbought += 1;
         updateHTML();
     };
 };
@@ -105,6 +120,7 @@ function item4Buy() {
         points -= item4cost;
         item4cost += 1;
         item4cost = Math.round(item4cost * (1+inflation));
+        itemsbought += 1;
         updateHTML();
     };
 };
@@ -132,6 +148,12 @@ function saveData(method) {
     saveItem('item3cost', item3cost);
     saveItem('item4cost', item4cost);
 
+    // Save stats
+    saveItem('totalpoints', totalpoints);
+    saveItem('mostpoints', mostpoints);
+    saveItem('itemsbought', itemsbought);
+    saveItem('firstversion', firstversion);
+
     console.log("Save complete!");
     if (method == 'button') {
         alert("Save complete!");
@@ -156,7 +178,7 @@ function deleteSave() {
 };
 
 // Load save data
-temp1 = loadData('isthereasave')
+temp1 = loadData('isthereasave');
 if (temp1 === null) {
     console.log("No save was found.");
 } else {
@@ -194,12 +216,30 @@ if (temp1 === null) {
         item4cost = parseInt(loadData('item4cost'));
     };
 
+    // Stats
+    temp1 = loadData('totalpoints')
+    if (temp1 != null) {
+        totalpoints = parseInt(loadData('totalpoints'));
+    };
+    temp1 = loadData('mostpoints');
+    if (temp1 != null) {
+        mostpoints = parseInt(loadData('mostpoints'));
+    };
+    temp1 = loadData('itemsbought')
+    if (temp1 != null) {
+        itemsbought = parseInt(loadData('itemsbought'));
+    };
+    temp1 = loadData('firstversion')
+    if (temp1 != null) {
+        firstversion = loadData('firstversion');
+    };
+
     console.log("Save loaded.")
 };
 
 function loadData(item) {
-    return localStorage.getItem(savePrefix + item)
-}
+    return localStorage.getItem(savePrefix + item);
+};
 
 // Enable the button
 document.getElementById('mainButton').innerHTML = "I AM BUTTON";
@@ -210,10 +250,14 @@ setInterval(secondHasPassed, 10);
 
 function secondHasPassed() {
     points += pps/100;
+    totalpoints += pps/100;
     autosavetimer -= 1;
     if (autosavetimer <= 0) {
         autosavetimer = 6000
         saveData('auto');
+    };
+    if (points > mostpoints) {
+        mostpoints = points;
     };
     updateHTML();
 };
