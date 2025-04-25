@@ -2,7 +2,11 @@
 
 ## v1.0 [Unreleased]
 
-### v1.0.0.8 [Apr 24, 2025]
+### **The Formating Update** v1.0.0.9 [Apr 25, 2025]
+#### Added
+- Number formater (turns numbers like `904889571` into `904.8m`)
+
+### **The Statistical Update** v1.0.0.8 [Apr 24, 2025]
 #### Added
 - Stats
     - New feature, now including the following:
@@ -12,7 +16,7 @@
         - First Version Played
 - Settings header
 
-### v1.0.0.7 [Apr 23, 2025]
+### **The Expansion Update** v1.0.0.7 [Apr 23, 2025]
 #### Added
 - Autosaving every minute
 - Seperate variable for the cost increase of items being bought called `inflation`
@@ -26,13 +30,13 @@
 - Fixed `Upgrade Button` from having the cost of the `Automanic Button Clicker`
 - Fixed `Automanic Button Clicker` from defaulting to the default cost
 
-### v1.0.0.6 [Apr 21, 2025]
+### **The Deleting Update** v1.0.0.6 [Apr 21, 2025]
 #### Added
 - Added a way to delete your save data
 #### Changed
 - Smoothened the `Points/s` gain from once a second to 100 times per second.
 
-### v1.0.0.5 [Apr 17, 2025]
+### **The Automation Update** v1.0.0.5 [Apr 17, 2025]
 #### Added
 - Shop
     - Automanic Button Clicker (Shows when you have 5+ Points/Click)
@@ -40,11 +44,11 @@
 - Changed `ppc` and `Points Per Click` to `Points/Click`
 - Changed `pps` and `Points Per Second` to `Points/s`
 
-### v1.0.0.4 [Apr 17, 2025]
+### *fixes* v1.0.0.4 [Apr 17, 2025]
 #### Bug Fixes
 - Fixed a bug where you cannot load a new save because it tries to load a blank save. This was causing the `Points: NaN` issue.
 
-### v1.0.0.3 [Apr 15, 2025]
+### **The Saving Update** v1.0.0.3 [Apr 15, 2025] 
 #### Added
 - Added saving
 - Gives Points/s points every second (There are no upgrades for it at the moment)
@@ -55,12 +59,12 @@
 - CSS
     - Changed the Button's padding
 
-### v1.0.0.2 [Apr 12, 2025]
+### **The Shop Update** v1.0.0.2 [Apr 12, 2025] 
 #### Added
 - Shop
     - Upgrade Button
 
-### v1.0.0.1 [Apr 11, 2025]
+### **The Not an Update** v1.0.0.1 [Apr 11, 2025] 
 Initial release, so far just features a button that increases points
 
 ## Explanation of Version Numbers

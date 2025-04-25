@@ -2,15 +2,15 @@
 var isbeta = true;
 var majver = 0;
 var minver = 0;
-var betaver = 8;
+var betaver = 9;
 if (isbeta = false) {
-    document.getElementById('version').innerHTML = "v1." + majver + "." + minver;
+    document.getElementById('version').innerHTML = `v1.${majver}.${minver}`;
     savePrefix = "clicker/"
 } else if (isbeta = true) {
-    document.getElementById('version').innerHTML = "v1." + majver + "." + minver + "." + betaver;
+    document.getElementById('version').innerHTML = `v1.${majver}.${minver}.${betaver}`;
     savePrefix = "clicker/beta/"
 };
-console.log("Just a Clicker Game " + document.getElementById('version').innerHTML);
+console.log(`Just a Clicker Game ${document.getElementById('version').innerHTML}`);
 
 // Init Temp Variables (They are used to load data into if statements)
 var temp1 = "";
@@ -38,23 +38,23 @@ var inflation = 0.075 // cost*(1+inflation) = newcost (this is how high a cost g
 
 // Update the HTML text
 function updateHTML() {
-    document.getElementById('pointCount').innerHTML = "Points: " + Math.floor(points);
-    document.getElementById('item1cost').innerHTML = "Costs: " + item1cost + " Points";
-    document.getElementById('item2cost').innerHTML = "Costs: " + item2cost + " Points";
-    document.getElementById('item3cost').innerHTML = "Costs: " + item3cost + " Points";
-    document.getElementById('item4cost').innerHTML = "Costs: " + item4cost + " Points";
+    document.getElementById('pointCount').innerHTML = `Points: ${formatNumber(points)}`;
+    document.getElementById('item1cost').innerHTML = `Costs: ${formatNumber(item1cost)} Points`;
+    document.getElementById('item2cost').innerHTML = `Costs: ${formatNumber(item2cost)} Points`;
+    document.getElementById('item3cost').innerHTML = `Costs: ${formatNumber(item3cost)} Points`;
+    document.getElementById('item4cost').innerHTML = `Costs: ${formatNumber(item4cost)} Points`;
 
-    document.getElementById('stat1').innerHTML = "Total Points: " + totalpoints;
-    document.getElementById('stat2').innerHTML = "Most Points: " + mostpoints;
-    document.getElementById('stat3').innerHTML = "Items Bought: " + itemsbought;
-    document.getElementById('firstversion').innerHTML = "First Version Played: " + firstversion;
+    document.getElementById('stat1').innerHTML = `Total Points: ${formatNumber(totalpoints)}`;
+    document.getElementById('stat2').innerHTML = `Most Points: ${formatNumber(mostpoints)}`;
+    document.getElementById('stat3').innerHTML = `Items Bought: ${formatNumber(itemsbought)}`;
+    document.getElementById('firstversion').innerHTML = `First Version Played: ${firstversion}`;
 
     // Shows Items when Unlocked
     if (points >= 10) { // Upgrade Button
         document.getElementById('item1').style.display = "block";
     };
     if (ppc >= 2) { // Points/Click Count
-        document.getElementById('ppcCount').innerHTML = "Points/Click: " + ppc;
+        document.getElementById('ppcCount').innerHTML = `Points/Click: ${formatNumber(ppc)}`;
         document.getElementById("ppcCount").style.display = "block";
         document.getElementById('item1').style.display = "block";
     };
@@ -62,7 +62,7 @@ function updateHTML() {
         document.getElementById('item2').style.display = "block";
     };
     if (pps >= 1) { // Points/s Count
-        document.getElementById('ppsCount').innerHTML = "Points/s: " + pps;
+        document.getElementById('ppsCount').innerHTML = `Points/s: ${formatNumber(pps)}`;
         document.getElementById("ppsCount").style.display = "block";
     };
     if (pps >= 10) { // Polish Button
@@ -125,6 +125,26 @@ function item4Buy() {
     };
 };
 
+function formatNumber(number) {
+    if (typeof number == 'string') {
+        number = parseInt(number)
+    };
+
+    if (number < 1000) { //0-999
+        return Math.floor(number)
+    } else if (number < 1000000) { //1k-1m
+        return `${Math.floor(number/100)/10}k`
+    } else if (number < 1000000000) { //1m-1b
+        return `${Math.floor(number/100000)/10}m`
+    } else if (number < 1000000000000) { //1b-1t
+        return `${Math.floor(number/100000000)/10}b`
+    } else if (number < 1000000000000000) { //1t-1000t
+        return `${Math.floor(number/100000000000)/10}t`
+    } else {
+        return `-->!${Math.floor(number)}!<--`
+    };
+};
+
 function saveData(method) {
     console.log("Saving game...");
 
@@ -149,8 +169,8 @@ function saveData(method) {
     saveItem('item4cost', item4cost);
 
     // Save stats
-    saveItem('totalpoints', totalpoints);
-    saveItem('mostpoints', mostpoints);
+    saveItem('totalpoints', Math.floor(totalpoints));
+    saveItem('mostpoints', Math.floor(mostpoints));
     saveItem('itemsbought', itemsbought);
     saveItem('firstversion', firstversion);
 
@@ -246,9 +266,9 @@ document.getElementById('mainButton').innerHTML = "I AM BUTTON";
 document.getElementById('mainButton').disabled = false;
 updateHTML(); // Also updateHTML() to get all of the save data to show up on the screen
 
-setInterval(secondHasPassed, 10);
+setInterval(clock, 10);
 
-function secondHasPassed() {
+function clock() {
     points += pps/100;
     totalpoints += pps/100;
     autosavetimer -= 1;
