@@ -2,6 +2,14 @@
 
 ## v1.0 [Unreleased]
 
+### **Tier 3 Expansion Update** v1.0.0.10 [Aug 22, 2025]
+#### Added
+- Shop
+    - Polish Button (200 Points/s)
+    - Automanic Button Presser MkIII (600 Points/Click)
+#### Changed
+- Changed the border color of shop items from `white` to `gray`
+
 ### **The Formating Update** v1.0.0.9 [Apr 25, 2025]
 #### Added
 - Number formater (turns numbers like `904889571` into `904.8m`)
@@ -23,10 +31,10 @@
 - Shop
     - Added Polish Button (Shows when you have 10+ Points/s)
     - Added Automanic Button Clicker MkII (Shows when you have 60+ Points/Click)
-#### Changes
+#### Changed
 - Simplified Saving and Loading Code
 - Change `inflation` from 10% to 7.5%
-#### Bug Fixes
+#### Fixes
 - Fixed `Upgrade Button` from having the cost of the `Automanic Button Clicker`
 - Fixed `Automanic Button Clicker` from defaulting to the default cost
 
@@ -45,7 +53,7 @@
 - Changed `pps` and `Points Per Second` to `Points/s`
 
 ### *fixes* v1.0.0.4 [Apr 17, 2025]
-#### Bug Fixes
+#### Fixes
 - Fixed a bug where you cannot load a new save because it tries to load a blank save. This was causing the `Points: NaN` issue.
 
 ### **The Saving Update** v1.0.0.3 [Apr 15, 2025] 

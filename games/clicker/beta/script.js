@@ -2,7 +2,7 @@
 var isbeta = true;
 var majver = 0;
 var minver = 0;
-var betaver = 9;
+var betaver = 10;
 if (isbeta = false) {
     document.getElementById('version').innerHTML = `v1.${majver}.${minver}`;
     savePrefix = "clicker/"
@@ -25,6 +25,8 @@ var item1cost = 10; // Upgrade Button
 var item2cost = 25; // Automanic Button Clicker
 var item3cost = 140; // Polish Button
 var item4cost = 300; // Automanic Button Clicker MkII
+var item5cost = 600; // Decorate Button
+var item6cost = 1000; // Automanic Button Clicker MkIII
 
 // Stats
 var totalpoints = 0;
@@ -43,6 +45,8 @@ function updateHTML() {
     document.getElementById('item2cost').innerHTML = `Costs: ${formatNumber(item2cost)} Points`;
     document.getElementById('item3cost').innerHTML = `Costs: ${formatNumber(item3cost)} Points`;
     document.getElementById('item4cost').innerHTML = `Costs: ${formatNumber(item4cost)} Points`;
+    document.getElementById('item5cost').innerHTML = `Costs: ${formatNumber(item5cost)} Points`;
+    document.getElementById('item6cost').innerHTML = `Costs: ${formatNumber(item6cost)} Points`;
 
     document.getElementById('stat1').innerHTML = `Total Points: ${formatNumber(totalpoints)}`;
     document.getElementById('stat2').innerHTML = `Most Points: ${formatNumber(mostpoints)}`;
@@ -65,11 +69,17 @@ function updateHTML() {
         document.getElementById('ppsCount').innerHTML = `Points/s: ${formatNumber(pps)}`;
         document.getElementById("ppsCount").style.display = "block";
     };
-    if (pps >= 10) { // Polish Button
+    if (pps >= 10) { // Poli!sh Button
         document.getElementById('item3').style.display = "block";
     };
     if (ppc >= 60) { // Automanic Button Clicker MkII
         document.getElementById('item4').style.display = "block";
+    };
+    if (pps >= 200) { // Decorate Button
+        document.getElementById('item5').style.display = "block";
+    };
+    if (ppc >= 600) { // Automanic Button Clicker MkIII
+        document.getElementById('item6').style.display = "block";
     };
 };
 
@@ -125,6 +135,28 @@ function item4Buy() {
     };
 };
 
+function item5Buy() {
+    if (points >= item5cost) {
+        ppc += 20;
+        points -= item5cost;
+        item5cost += 1;
+        item5cost = Math.round(item5cost * (1+inflation));
+        itemsbought += 1;
+        updateHTML();
+    };
+};
+
+function item6Buy() {
+    if (points >= item6cost) {
+        pps += 24;
+        points -= item6cost;
+        item6cost += 1;
+        item6cost = Math.round(item6cost * (1+inflation));
+        itemsbought += 1;
+        updateHTML();
+    };
+};
+
 function formatNumber(number) {
     if (typeof number == 'string') {
         number = parseInt(number)
@@ -167,6 +199,8 @@ function saveData(method) {
     saveItem('item2cost', item2cost);
     saveItem('item3cost', item3cost);
     saveItem('item4cost', item4cost);
+    saveItem('item5cost', item5cost);
+    saveItem('item6cost', item6cost);
 
     // Save stats
     saveItem('totalpoints', Math.floor(totalpoints));
@@ -234,6 +268,14 @@ if (temp1 === null) {
     temp1 = loadData('item4cost')
     if (temp1 != null) {
         item4cost = parseInt(loadData('item4cost'));
+    };
+    temp1 = loadData('item5cost')
+    if (temp1 != null) {
+        item5cost = parseInt(loadData('item5cost'));
+    };
+    temp1 = loadData('item6cost')
+    if (temp1 != null) {
+        item6cost = parseInt(loadData('item6cost'));
     };
 
     // Stats

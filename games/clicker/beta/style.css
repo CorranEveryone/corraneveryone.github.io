@@ -70,7 +70,8 @@ iframe {
 }
 
 .shopitem {
-  border: white;
+  border: gray;
   border-style: solid;
   border-radius: 8px;
+  margin-bottom: 8px
 }
