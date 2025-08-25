@@ -33,43 +33,50 @@
       <div class="column" style="text-align: left;"> <!-- Left -->
 
         <h1>Shop</h1>
+        <h2>Filters</h2>
+        <div class="boxed" style="display: block">
+          <h3>Upgrade Filters (wip)</h3>
+          <div><button id="togglepointsclick" class="trueToggle" onclick="if (filterpointsclick == true) {filterpointsclick = false} else if (filterpointsclick == false) {filterpointsclick = true}">Points/Click</button></div>
+          <div><button id="togglepointssecond" class="trueToggle" onclick="if (filterpointssecond == true) {filterpointssecond = false} else if (filterpointssecond == false) {filterpointssecond = true}">Points/s</button></div>
+        </div>
 
-        <div id="item1" class="shopitem" style="display: none">
+        <h2>Upgrades</h2>
+        <div id="item1" class="boxed" style="display: none">
           <h3>Upgrade Button</h3>
           <div>+1 Point/Click</div>
           <div id="item1cost">Costs: 10 Points</div>
           <div><button onclick="item1Buy()">Buy!</button></div>
         </div>
 
-        <div id="item2" class="shopitem" style="display: none">
+        <div id="item2" class="boxed" style="display: none">
           <h3>Automanic Button Clicker</h3>
           <div>+1 Point/s</div>
           <div id="item2cost">Costs: 25 Points</div>
           <div><button onclick="item2Buy()">Buy!</button></div>
         </div>
 
-        <div id="item3" class="shopitem" style="display: none">
+        <div id="item3" class="boxed" style="display: none">
           <h3>Polish Button</h3>
           <div>+8 Point/Click</div>
           <div id="item3cost">Costs: 140 Points</div>
           <div><button onclick="item3Buy()">Buy!</button></div>
         </div>
 
-        <div id="item4" class="shopitem" style="display: none">
+        <div id="item4" class="boxed" style="display: none">
           <h3>Automanic Button Clicker MkII</h3>
           <div>+10 Point/s</div>
           <div id="item4cost">Costs: 300 Points</div>
           <div><button onclick="item4Buy()">Buy!</button></div>
         </div>
         
-        <div id="item5" class="shopitem" style="display: none">
+        <div id="item5" class="boxed" style="display: none">
           <h3>Decorate Button</h3>
           <div>+20 Point/Click</div>
           <div id="item5cost">Costs: 600 Points</div>
           <div><button onclick="item5Buy()">Buy!</button></div>
         </div>
 
-        <div id="item6" class="shopitem" style="display: none">
+        <div id="item6" class="boxed" style="display: none">
           <h3>Automanic Button Clicker MkIII</h3>
           <div>+24 Point/s</div>
           <div id="item6cost">Costs: 1k Points</div>
@@ -96,7 +103,7 @@
         <h1>Settings</h1>
         <div><button onclick="saveData('button')">Save Game</button></div>
         <div><button onclick="promptDeleteSave()">Delete Save Data</button></div>
-        <div class="shopitem" style="display: none" id="deletesaveprompt">
+        <div class="boxed" style="display: none" id="deletesaveprompt">
           <h3>Are you sure you want to delete your Save Data?</h3>
           <div><button onclick="closeDeleteSave()">NO! NO! PLEASE DON'T DELETE MY SAVE!</button></div>
           <div><button onclick="deleteSave()">Yes, delete it.</button></div>

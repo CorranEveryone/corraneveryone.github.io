@@ -2,6 +2,17 @@
 
 ## v1.0 [Unreleased]
 
+### **Shop Filters Update** v1.0.0.11 [Aug 25, 2025]
+#### Added
+- Shop Filters (Don't Work Just Yet, I was having some issues but eventually worked it out but ran out of time.)
+    - Points/Click
+    - Points/s
+- CSS Classes
+    - trueToggle
+    - falseToggle
+#### Changed
+    - CSS class `shopitem` was changed to `boxed`
+
 ### **Tier 3 Expansion Update** v1.0.0.10 [Aug 22, 2025]
 #### Added
 - Shop

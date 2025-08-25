@@ -2,7 +2,7 @@
 var isbeta = true;
 var majver = 0;
 var minver = 0;
-var betaver = 10;
+var betaver = 11;
 if (isbeta = false) {
     document.getElementById('version').innerHTML = `v1.${majver}.${minver}`;
     savePrefix = "clicker/"
@@ -34,6 +34,10 @@ var mostpoints = 0;
 var itemsbought = 0;
 var firstversion = document.getElementById('version').innerHTML
 
+// Shop Filters
+var filterpointsclick = true;
+var filterpointssecond = true;
+
 // Misc. Variables
 var autosavetimer = 6000 // 1 tick = 1/100 of a second
 var inflation = 0.075 // cost*(1+inflation) = newcost (this is how high a cost goes up when you buy something)
@@ -52,6 +56,10 @@ function updateHTML() {
     document.getElementById('stat2').innerHTML = `Most Points: ${formatNumber(mostpoints)}`;
     document.getElementById('stat3').innerHTML = `Items Bought: ${formatNumber(itemsbought)}`;
     document.getElementById('firstversion').innerHTML = `First Version Played: ${firstversion}`;
+
+    // Filter Colors
+    document.getElementById('togglepointsclick').className = `${filterpointsclick}Toggle`;
+    document.getElementById('togglepointssecond').className = `${filterpointssecond}Toggle`;
 
     // Shows Items when Unlocked
     if (points >= 10) { // Upgrade Button
