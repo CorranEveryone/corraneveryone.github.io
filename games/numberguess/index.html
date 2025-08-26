@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html>
-
-
-  
   <head>
-    
     <title>Number Guess</title>
     <!-- Load style.css -->
-    <link href="/style.css" rel="stylesheet" type="text/css" />
+    <link href="./style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/x-icon" href="/images/icon.png">
-    
   </head>
-
-
-  
   <header>
-    <iframe src="/header.html" height="55px" width="100%" target="_parent" border-width="0px"></iframe>
+    <button onclick="window.location.href='/games/';">Return to Games</button>
   </header>
-
-
-  
   <body>
-    
     <a class='heading'>
-    <h1>Number Guess</h1>
+      <h1>Number Guess</h1>
+
+      <div class="menu" id="menuSetup">
+        <button onclick="start()">Start</button>
+      </div>
+
+      <div class="menu" id="menuGame">
+        <h2 id="gameMessage"></h2>
+        <div><input id="gameGuess"><button onclick="submit()">Submit</button></div>
+        <div id="gameLives"></div>
+      </div>
+
     </a>
-    
+    <script src="script.js"></script>
   </body>
-
-
-  
 </html>

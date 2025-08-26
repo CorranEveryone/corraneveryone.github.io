@@ -1,0 +1,25 @@
+body {
+  background: #333333;
+  color: #f0f0f0;
+  font-family: arial;
+  text-align: center;
+}
+
+button {
+  background: #0023bc;
+  border: none;
+  color: #f0f0f0;
+}
+
+.menu {
+  display: none;
+  border: gray;
+  border-style: solid;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+body button {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
