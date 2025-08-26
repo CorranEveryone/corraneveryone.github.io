@@ -2,7 +2,7 @@
 var isbeta = true;
 var majver = 0;
 var minver = 0;
-var betaver = 11;
+var betaver = 12;
 if (isbeta = false) {
     document.getElementById('version').innerHTML = `v1.${majver}.${minver}`;
     savePrefix = "clicker/"
@@ -27,6 +27,14 @@ var item3cost = 140; // Polish Button
 var item4cost = 300; // Automanic Button Clicker MkII
 var item5cost = 600; // Decorate Button
 var item6cost = 1000; // Automanic Button Clicker MkIII
+
+// Shop Unlocks
+var unlockeditem1 = false;
+var unlockeditem2 = false;
+var unlockeditem3 = false;
+var unlockeditem4 = false;
+var unlockeditem5 = false;
+var unlockeditem6 = false;
 
 // Stats
 var totalpoints = 0;
@@ -61,33 +69,71 @@ function updateHTML() {
     document.getElementById('togglepointsclick').className = `${filterpointsclick}Toggle`;
     document.getElementById('togglepointssecond').className = `${filterpointssecond}Toggle`;
 
-    // Shows Items when Unlocked
+    // Unlock Items
     if (points >= 10) { // Upgrade Button
         document.getElementById('item1').style.display = "block";
     };
     if (ppc >= 2) { // Points/Click Count
         document.getElementById('ppcCount').innerHTML = `Points/Click: ${formatNumber(ppc)}`;
         document.getElementById("ppcCount").style.display = "block";
-        document.getElementById('item1').style.display = "block";
+        unlockeditem1 = true;
     };
     if (ppc >= 5) { // Automanic Button Clicker
-        document.getElementById('item2').style.display = "block";
+        unlockeditem2 = true;
     };
     if (pps >= 1) { // Points/s Count
         document.getElementById('ppsCount').innerHTML = `Points/s: ${formatNumber(pps)}`;
         document.getElementById("ppsCount").style.display = "block";
     };
-    if (pps >= 10) { // Poli!sh Button
-        document.getElementById('item3').style.display = "block";
+    if (pps >= 10) { // Polish Button
+        unlockeditem3 = true;
     };
     if (ppc >= 60) { // Automanic Button Clicker MkII
-        document.getElementById('item4').style.display = "block";
+        unlockeditem4 = true;
     };
     if (pps >= 200) { // Decorate Button
-        document.getElementById('item5').style.display = "block";
+        unlockeditem5 = true;
     };
     if (ppc >= 600) { // Automanic Button Clicker MkIII
+        unlockeditem6 = true;
+    };
+
+
+    // Show Items
+    if (unlockeditem1 == true && filterpointsclick == true) {
+        document.getElementById('item1').style.display = "block";
+    } else {
+        document.getElementById('item1').style.display = "none";
+    };
+
+    if (unlockeditem2 == true && filterpointssecond == true) {
+        document.getElementById('item2').style.display = "block";
+    } else {
+        document.getElementById('item2').style.display = "none";
+    };
+
+    if (unlockeditem3 == true && filterpointsclick == true) {
+        document.getElementById('item3').style.display = "block";
+    } else {
+        document.getElementById('item3').style.display = "none";
+    };
+
+    if (unlockeditem4 == true && filterpointssecond == true) {
+        document.getElementById('item4').style.display = "block";
+    } else {
+        document.getElementById('item4').style.display = "none";
+    };
+
+    if (unlockeditem5 == true && filterpointsclick == true) {
+        document.getElementById('item5').style.display = "block";
+    } else {
+        document.getElementById('item5').style.display = "none";
+    };
+
+    if (unlockeditem6 == true && filterpointssecond == true) {
         document.getElementById('item6').style.display = "block";
+    } else {
+        document.getElementById('item6').style.display = "none";
     };
 };
 

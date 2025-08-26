@@ -2,11 +2,18 @@
 
 ## v1.0 [Unreleased]
 
-### **Shop Filters Update** v1.0.0.11 [Aug 25, 2025]
-#### Added
-- Shop Filters (Don't Work Just Yet, I was having some issues but eventually worked it out but ran out of time.)
+### **Complete Shop Filters Update** v1.0.0.12 [Aug 26, 2026]
+#### Finished
+- Shop Filters
     - Points/Click
     - Points/s
+
+### **Incomplete Shop Filters Update** v1.0.0.11 [Aug 25, 2025]
+#### Started
+- Shop Filters (Don't Work Just Yet.)
+    - Points/Click
+    - Points/s
+#### Added
 - CSS Classes
     - trueToggle
     - falseToggle
